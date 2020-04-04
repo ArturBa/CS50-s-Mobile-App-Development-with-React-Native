@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Timer from './Timer.js';
+import Timer from './Timer';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>In real time </Text>
       <Timer />
     </View>
   );
