@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native'
-import {vibrate} from './utils/'
+import { View, Text, Button, StyleSheet } from 'react-native'
+import { Constants } from 'expo';
+import { vibrate} from './utils/'
 
 export class Timer extends React.Component {
 
@@ -16,7 +17,7 @@ export class Timer extends React.Component {
     }
 
     componentDidMount() {
-        this.setUpTime();
+        ;
     }
 
     componentWillUnmount() {
@@ -24,23 +25,23 @@ export class Timer extends React.Component {
     }
 
     setUpTime() {
-        if (this.state.time == 0){
-            if (this.state.work){
-                this.setState({
-                    time: this.state.work_time,
-                })
-            } else {
-                this.setState({
-                    time: this.state.break_time,
-                })
-
-            }
+        console.log(this.state.work_time);
+        if (this.state.work){
+            this.setState({
+                time: this.state.work_time,
+            })
+        } else {
+            this.setState({
+                time: this.state.break_time,
+            })
         }
     }
 
     start() {
         if (!this.state.running){
-            this.setUpTime();
+            if (this.state.time === 0){
+                this.setUpTime();
+            }
             this.interval = setInterval(this.timeInc, 1000);
             this.setState({
                 running: true,
@@ -71,7 +72,6 @@ export class Timer extends React.Component {
                 time: 0,
             });
         }
-
     }
 
     timeInc = () => {
@@ -84,19 +84,48 @@ export class Timer extends React.Component {
         }
     }
 
+    incWorkTime = () => {
+        this.setState(prevState => ({
+            work_time: prevState.work_time + 1,
+        }));
+        console.log(`inc work time: ${this.state.work_time}`);
+    }
+
+    decWorkTime = () => {
+        this.setState(prevState => ({
+            work_time: prevState.work_time - 1,
+        }));
+    }
+
+    incBreakTime = () => {
+        this.setState(prevState => ({
+            break_time: prevState.break_time + 1,
+        }));
+    }
+
+    decBreakTime = () => {
+        this.setState(prevState => ({
+            break_time: prevState.break_time - 1,
+        }));
+    }
+
     render() {
         let button;
+        let status;
         if (this.state.running){
-            button = <Button onPress={() => {this.pause()}} title="Pause" color="#841584"
-                    accessibilityLabel="Learn more about this purple button" />;
+            button = <Button onPress={() => {this.pause()}} title="Pause" color="#1122ff" />;
         } else {
-            button = <Button onPress={() => {this.start()}} title="Start" color="#841584"
-                    accessibilityLabel="Learn more about this purple button" />;
-
+            button = <Button onPress={() => {this.start()}} title="Start" color="#22ff22" />;
+        }
+        if (this.state.work){
+            status="Working";
+        } else {
+            status="Break";
         }
         return(
-            <View>
-            <Text>
+            <View style={styles.view}>
+            <Text style={styles.text}> {status} </Text>
+            <Text style={styles.text}>
                 {Math.floor(this.state.time/60)}:
                 {this.state.time%60 < 10 ? 
                     "0" + this.state.time%60 :
@@ -104,8 +133,17 @@ export class Timer extends React.Component {
             </Text>
             <View style={styles.row}>
                 {button}
-                <Button onPress={() => {this.stop()}} title="Stop" color="#841584"
-                    accessibilityLabel="Learn more about this purple button" />
+                <Button onPress={() => {this.stop()}} title="Stop" color="#ff1100"/>
+            </View>
+            <View style={styles.row}>
+                <Text> Working time {this.state.work_time} min </Text>
+                <Button onPress={() => {this.incWorkTime()}} title="+" />
+                <Button onPress={() => {this.decWorkTime()}} title="-" />
+            </View>
+            <View style={styles.row}>
+                <Text> Break time {this.state.break_time} min </Text>
+                <Button onPress={() => {this.incBreakTime()}} title="+" />
+                <Button onPress={() => {this.decBreakTime()}} title="-" />
             </View>
             </View>
 
@@ -114,9 +152,23 @@ export class Timer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row"
-  },
+    row: {
+        flexDirection: "row",
+        padding: 20,
+    },
+    button: {
+        color: '#841584',
+        padding: 10,
+        fontSize: 48,
+    },
+    view: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 20,
+    },
+    text: {
+        fontSize: 48,
+    }
 });
 
 export default Timer;
