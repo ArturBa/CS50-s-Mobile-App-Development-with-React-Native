@@ -7,13 +7,26 @@ export class Timer extends React.Component {
     constructor() {
         super();
         this.state = {
-            time: 10,
+            work_time: 25,// * 60,
+            break_time: 5,// * 60,
+            time: 25,//*60,
             running: false,
+            work: true,
         }
     }
 
     start() {
         if (!this.state.running){
+            if (this.state.work){
+                this.setState({
+                    time: this.state.work_time,
+                })
+            } else {
+                this.setState({
+                    time: this.state.break_time,
+                })
+
+            }
             this.interval = setInterval(this.timeInc, 1000);
             this.setState({
                 running: true,
@@ -33,14 +46,20 @@ export class Timer extends React.Component {
 
     stop () {
         this.pause();
-        this.setState({
-            time: 25 * 60,
-        });
+        if (this.state.work){
+            this.setState({
+                work: false,
+            });
+        } else {
+            this.setState({
+                work: true,
+            });
+        }
 
     }
 
     componentWillUnmount () {
-        this.pause();
+        this.stop();
     }
 
     timeInc = () => {
@@ -48,9 +67,8 @@ export class Timer extends React.Component {
             time: prevState.time - 1,
         }));
         if (this.state.time === 0){
-            this.stop();
             vibrate();
-
+            this.stop();
         }
     }
 
@@ -58,7 +76,10 @@ export class Timer extends React.Component {
         return(
             <View>
             <Text>
-              {Math.floor(this.state.time/60)}:{this.state.time%60}
+                {Math.floor(this.state.time/60)}:
+                {this.state.time%60 < 10 ? 
+                    "0" + this.state.time%60 :
+                    this.state.time%60}
             </Text>
             <Button onPress={() => {this.start()}} title="Start" color="#841584"
                 accessibilityLabel="Learn more about this purple button" />
