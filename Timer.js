@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native'
+import {View, Text, Button, StyleSheet} from 'react-native'
 import {vibrate} from './utils/'
 
 export class Timer extends React.Component {
@@ -9,14 +9,22 @@ export class Timer extends React.Component {
         this.state = {
             work_time: 25,// * 60,
             break_time: 5,// * 60,
-            time: 25,//*60,
+            time: 0,
             running: false,
             work: true,
         }
     }
 
-    start() {
-        if (!this.state.running){
+    componentDidMount() {
+        this.setUpTime();
+    }
+
+    componentWillUnmount() {
+        this.stop();
+    }
+
+    setUpTime() {
+        if (this.state.time == 0){
             if (this.state.work){
                 this.setState({
                     time: this.state.work_time,
@@ -27,6 +35,12 @@ export class Timer extends React.Component {
                 })
 
             }
+        }
+    }
+
+    start() {
+        if (!this.state.running){
+            this.setUpTime();
             this.interval = setInterval(this.timeInc, 1000);
             this.setState({
                 running: true,
@@ -49,17 +63,15 @@ export class Timer extends React.Component {
         if (this.state.work){
             this.setState({
                 work: false,
+                time: 0,
             });
         } else {
             this.setState({
                 work: true,
+                time: 0,
             });
         }
 
-    }
-
-    componentWillUnmount () {
-        this.stop();
     }
 
     timeInc = () => {
@@ -73,6 +85,15 @@ export class Timer extends React.Component {
     }
 
     render() {
+        let button;
+        if (this.state.running){
+            button = <Button onPress={() => {this.pause()}} title="Pause" color="#841584"
+                    accessibilityLabel="Learn more about this purple button" />;
+        } else {
+            button = <Button onPress={() => {this.start()}} title="Start" color="#841584"
+                    accessibilityLabel="Learn more about this purple button" />;
+
+        }
         return(
             <View>
             <Text>
@@ -81,16 +102,21 @@ export class Timer extends React.Component {
                     "0" + this.state.time%60 :
                     this.state.time%60}
             </Text>
-            <Button onPress={() => {this.start()}} title="Start" color="#841584"
-                accessibilityLabel="Learn more about this purple button" />
-            <Button onPress={() => {this.pause()}} title="Pause" color="#841584"
-                accessibilityLabel="Learn more about this purple button" />
-            <Button onPress={() => {this.stop()}} title="Stop" color="#841584"
-                accessibilityLabel="Learn more about this purple button" />
+            <View style={styles.row}>
+                {button}
+                <Button onPress={() => {this.stop()}} title="Stop" color="#841584"
+                    accessibilityLabel="Learn more about this purple button" />
+            </View>
             </View>
 
         );
     }
 }
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row"
+  },
+});
 
 export default Timer;
