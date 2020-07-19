@@ -15,4 +15,4 @@ web-build/
 package-lock.json
 
 # vs code
-.vs/**
+.vscode/**
