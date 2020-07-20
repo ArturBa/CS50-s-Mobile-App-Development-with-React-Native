@@ -11,7 +11,7 @@ function AppStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Movie List" component={MovieListScreen} />
-      <Stack.Screen name="Movie details" component={MovieDetailsScreen} />
+      <Stack.Screen name="Movie Details" component={MovieDetailsScreen} />
     </Stack.Navigator>
   );
 }

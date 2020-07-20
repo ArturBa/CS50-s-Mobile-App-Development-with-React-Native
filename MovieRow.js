@@ -7,13 +7,15 @@ const styles = StyleSheet.create({
 });
 
 const Row = (props) => (
-  <TouchableOpacity style={styles.row}>
-    <Text>{props.title}</Text>
+  <TouchableOpacity
+    style={styles.row}
+    onPress={() => props.onSelectMovie(props)}>
+    <Text>{props.movie.Title}</Text>
   </TouchableOpacity>
 );
 
 Row.propTypes = {
-  title: PropTypes.string,
+  movie: PropTypes.any,
 };
 
 export default Row;

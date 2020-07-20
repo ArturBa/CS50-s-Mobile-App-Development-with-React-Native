@@ -4,24 +4,6 @@ import {StyleSheet, Text, View, SafeAreaView, SectionList} from 'react-native';
 import Constants from 'expo-constants';
 
 import Row from './MovieRow';
-const DATA = [
-  {
-    title: 'Main dishes',
-    data: ['Pizza', 'Burger', 'Risotto'],
-  },
-  {
-    title: 'Sides',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-  },
-  {
-    title: 'Drinks',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-  {
-    title: 'Desserts',
-    data: ['Cheese Cake', 'Ice Cream'],
-  },
-];
 
 const Item = ({title}) => (
   <View style={styles.item}>
@@ -45,13 +27,14 @@ const ScrollViewMovies = (props) => {
       title: letter,
     }));
 
-  debugger;
   return (
     <SafeAreaView style={styles.container}>
       <SectionList
         sections={sections}
         keyExtractor={(item) => item.imdbID}
-        renderItem={({item}) => <Item title={item.Title} />}
+        renderItem={({item}) => (
+          <Row movie={item} onSelectMovie={props.onSelectMovie} />
+        )}
         renderSectionHeader={({section: {title}}) => (
           <Text style={styles.header}>{title}</Text>
         )}
