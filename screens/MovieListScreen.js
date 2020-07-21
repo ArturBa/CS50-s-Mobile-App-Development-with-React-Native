@@ -5,19 +5,6 @@ import ScrollViewMovies from '../ScrollViewMovies';
 import {search} from '../mockData';
 
 export default class MovieListScreen extends React.Component {
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerTitle: 'Contacts',
-      headerRight: (
-        <Button
-          title="Add"
-          onPress={() => navigation.navigate('AddContact')}
-          color="#a41034"
-        />
-      ),
-    };
-  };
-
   handleMovieDetails = (movie) => {
     this.props.navigation.push('Movie Details', movie);
   };
