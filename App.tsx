@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import MovieDetailsScreen from './screens/MovieDetailsScreen';
 import MovieListScreen from './screens/MovieListScreen';
+import MoviePosterScreen from './screens/MoviePosterScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,7 @@ function AppStack() {
     <Stack.Navigator>
       <Stack.Screen name="Movie List" component={MovieListScreen} />
       <Stack.Screen name="Movie Details" component={MovieDetailsScreen} />
+      <Stack.Screen name="Movie Poster" component={MoviePosterScreen} />
     </Stack.Navigator>
   );
 }

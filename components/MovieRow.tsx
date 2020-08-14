@@ -1,11 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
-import PropTypes from 'prop-types';
 import {MovieSearch} from '../interfaces/Movie';
-
-const styles = StyleSheet.create({
-  row: {padding: 20},
-});
 
 const MovieRow = ({
   movie,
@@ -21,8 +16,8 @@ const MovieRow = ({
   </TouchableOpacity>
 );
 
-MovieRow.propTypes = {
-  movie: PropTypes.any,
-};
+const styles = StyleSheet.create({
+  row: {padding: 20},
+});
 
 export default MovieRow;

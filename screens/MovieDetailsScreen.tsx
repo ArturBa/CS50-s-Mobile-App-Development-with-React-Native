@@ -3,12 +3,18 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 import ApiHelper from '../api/apiHelper';
 import {Movie} from '../interfaces/Movie';
+import {
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native-gesture-handler';
 
 const MovieDetailsScreen = ({
+  navigation,
   route: {
     params: {movieId},
   },
 }: {
+  navigation: any;
   route: {
     params: {
       movieId: string;
@@ -25,9 +31,20 @@ const MovieDetailsScreen = ({
     setMovie(movie);
   }
 
+  const handleImagePress = () => {
+    const posterUri = {posterUri: movie.Poster};
+    console.log(posterUri);
+
+    navigation.push('Movie Poster', posterUri);
+  };
+
   return movie ? (
     <View style={styles.movieDetails}>
-      <Image style={styles.img} source={{uri: movie.Poster}} />
+      <View style={styles.imgTouch}>
+        <TouchableHighlight onPress={() => handleImagePress()}>
+          <Image style={styles.img} source={{uri: movie.Poster}} />
+        </TouchableHighlight>
+      </View>
       <View style={styles.movieText}>
         <Text style={styles.title}>{movie.Title}</Text>
         <Text style={styles.year}>Year: {movie.Year}</Text>
@@ -49,9 +66,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-  img: {
+  imgTouch: {
     flex: 1,
     padding: 20,
+    alignItems: 'center',
+  },
+  img: {
+    width: 200,
+    height: '100%',
   },
   movieText: {
     flex: 2,
