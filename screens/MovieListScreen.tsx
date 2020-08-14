@@ -33,25 +33,27 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     getMovieResult().then((newResults) => {
       setMovieResult(newResults);
+      if (page.page === 1) {
+        nextPage();
+      }
     });
   }, [page]);
+
+  async function initPage(): Promise<void> {
+    const maxPageApi = await ApiHelper.getMoviesByNamePages(searchTitle);
+    setPage({page: 1, maxPage: maxPageApi});
+  }
 
   async function getInitMovieResult(): Promise<void> {
     Keyboard.dismiss();
     setMovieResult([] as MovieSearch[]);
-    setPage({
-      page: 1,
-      maxPage: await ApiHelper.getMoviesByNamePages(searchTitle),
-    });
-    debugger;
-    nextPage();
+    initPage();
   }
 
   async function getMovieResult(): Promise<MovieSearch[]> {
     if (searchTitle === '') {
       return [];
     }
-    console.log(`getting data for: ${searchTitle}`);
 
     const movieResults = await ApiHelper.getMoviesByName(
       searchTitle,
