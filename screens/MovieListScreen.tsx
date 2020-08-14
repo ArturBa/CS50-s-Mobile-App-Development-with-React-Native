@@ -6,7 +6,7 @@ import {search} from '../mockData';
 
 const MovieListScreen = (props) => {
   const handleMovieDetails = (movieId: string) => {
-    movieId = 'id';
+    movieId = 'tt3896198';
     props.navigation.push('Movie Details', {movieId: movieId});
   };
 
