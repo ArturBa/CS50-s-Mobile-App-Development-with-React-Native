@@ -1,12 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-import {movie} from '../mockData';
+// import {movie} from '../mockData';
+import ApiHelper from '../api/api';
+import {Movie} from '../interfaces/Movie';
 
 const MovieDetailsScreen = () => {
-  // TODO: add movie from props
-  // const movie = this.props.route.params.movie;
-  return (
+  const [movie, setMovie] = useState({});
+  useEffect(() => {
+    getMovie();
+  }, []);
+
+  async function getMovie() {
+    // TODO: add movie id from props
+    // const movie = this.props.route.params.movie;
+    const movie = await ApiHelper.getMovie('id');
+    setMovie(movie);
+  }
+
+  return movie ? (
     <View style={styles.movieDetails}>
       <Image style={styles.img} source={{uri: movie.Poster}} />
       <View style={styles.movieText}>
@@ -20,6 +32,8 @@ const MovieDetailsScreen = () => {
         <Text style={styles.plotContent}>{movie.Plot}</Text>
       </View>
     </View>
+  ) : (
+    <Text>Something went wrong</Text>
   );
 };
 
