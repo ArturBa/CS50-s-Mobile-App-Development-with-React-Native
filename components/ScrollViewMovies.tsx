@@ -3,8 +3,6 @@ import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
 import PropTypes from 'prop-types';
 
-import Constants from 'expo-constants';
-
 import Row from './MovieRow';
 
 const ScrollViewMovies = ({movies, onSelectMovie}) => {
@@ -25,6 +23,8 @@ ScrollViewMovies.propTypes = {
   onSelectMovie: PropTypes.func,
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {},
+});
 
 export default ScrollViewMovies;
