@@ -33,8 +33,6 @@ const MovieDetailsScreen = ({
 
   const handleImagePress = () => {
     const posterUri = {posterUri: movie.Poster};
-    console.log(posterUri);
-
     navigation.push('Movie Poster', posterUri);
   };
 
