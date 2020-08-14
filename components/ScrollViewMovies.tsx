@@ -1,8 +1,6 @@
 import React from 'react';
 import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
-import PropTypes from 'prop-types';
-
 import MovieRow from './MovieRow';
 import {MovieSearch} from '../interfaces/Movie';
 
@@ -23,11 +21,6 @@ const ScrollViewMovies = ({
       />
     </SafeAreaView>
   );
-};
-
-ScrollViewMovies.propTypes = {
-  movies: PropTypes.array,
-  onSelectMovie: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
