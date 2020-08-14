@@ -1,22 +1,22 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {View} from 'react-native';
 
-import ScrollViewMovies from '../ScrollViewMovies';
+import ScrollViewMovies from '../components/ScrollViewMovies';
 import {search} from '../mockData';
 
-export default class MovieListScreen extends React.Component {
-  handleMovieDetails = (movie) => {
-    this.props.navigation.push('Movie Details', movie);
+const MovieListScreen = (props) => {
+  const handleMovieDetails = (movie) => {
+    props.navigation.push('Movie Details', movie);
   };
 
-  render() {
-    return (
-      <View>
-        <ScrollViewMovies
-          movies={search.Search}
-          onSelectMovie={this.handleMovieDetails}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      <ScrollViewMovies
+        movies={search.Search}
+        onSelectMovie={handleMovieDetails}
+      />
+    </View>
+  );
+};
+
+export default MovieListScreen;

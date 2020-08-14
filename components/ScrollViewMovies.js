@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -7,13 +7,13 @@ import Constants from 'expo-constants';
 
 import Row from './MovieRow';
 
-const ScrollViewMovies = (props) => {
+const ScrollViewMovies = ({movies, onSelectMovie}) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={props.movies}
+        data={movies}
         renderItem={({item}) => (
-          <Row movie={item} onSelectMovie={props.onSelectMovie} />
+          <Row movie={item} onSelectMovie={onSelectMovie} />
         )}
       />
     </SafeAreaView>
@@ -22,6 +22,7 @@ const ScrollViewMovies = (props) => {
 
 ScrollViewMovies.propTypes = {
   movies: PropTypes.array,
+  onSelectMovie: PropTypes.func,
 };
 
 const styles = StyleSheet.create({});

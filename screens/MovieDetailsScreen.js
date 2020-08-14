@@ -2,29 +2,26 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
 import {movie} from '../mockData';
-import Row from '../MovieRow';
 
-export default class MovieDetailsScreen extends React.Component {
-  render() {
-    // TODO: add movie from props
-    // const movie = this.props.route.params.movie;
-    return (
-      <View style={styles.movieDetails}>
-        <Image style={styles.img} source={{uri: movie.Poster}} />
-        <View style={styles.movieText}>
-          <Text style={styles.title}>{movie.Title}</Text>
-          <Text style={styles.year}>Year: {movie.Year}</Text>
-          <Text style={styles.director}>Director: {movie.Director}</Text>
-          <Text style={styles.imdb}>
-            IMDB: {movie.imdbRating}/10 ({movie.imdbVotes} votes)
-          </Text>
-          <Text style={styles.plotTitle}>Plot: </Text>
-          <Text style={styles.plotContent}>{movie.Plot}</Text>
-        </View>
+const MovieDetailsScreen = () => {
+  // TODO: add movie from props
+  // const movie = this.props.route.params.movie;
+  return (
+    <View style={styles.movieDetails}>
+      <Image style={styles.img} source={{uri: movie.Poster}} />
+      <View style={styles.movieText}>
+        <Text style={styles.title}>{movie.Title}</Text>
+        <Text style={styles.year}>Year: {movie.Year}</Text>
+        <Text style={styles.director}>Director: {movie.Director}</Text>
+        <Text style={styles.imdb}>
+          IMDB: {movie.imdbRating}/10 ({movie.imdbVotes} votes)
+        </Text>
+        <Text style={styles.plotTitle}>Plot: </Text>
+        <Text style={styles.plotContent}>{movie.Plot}</Text>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   movieDetails: {
@@ -68,3 +65,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+export default MovieDetailsScreen;
