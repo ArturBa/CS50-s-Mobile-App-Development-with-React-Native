@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-// import {movie} from '../mockData';
 import ApiHelper from '../api/api';
 import {Movie} from '../interfaces/Movie';
 
 const MovieDetailsScreen = () => {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState({} as Movie);
   useEffect(() => {
     getMovie();
   }, []);
