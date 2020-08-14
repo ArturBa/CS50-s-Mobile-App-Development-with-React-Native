@@ -5,8 +5,9 @@ import ScrollViewMovies from '../components/ScrollViewMovies';
 import {search} from '../mockData';
 
 const MovieListScreen = (props) => {
-  const handleMovieDetails = (movie) => {
-    props.navigation.push('Movie Details', movie);
+  const handleMovieDetails = (movieId: string) => {
+    movieId = 'id';
+    props.navigation.push('Movie Details', {movieId: movieId});
   };
 
   return (

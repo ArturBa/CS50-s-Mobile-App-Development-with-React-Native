@@ -4,16 +4,24 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import ApiHelper from '../api/api';
 import {Movie} from '../interfaces/Movie';
 
-const MovieDetailsScreen = () => {
+const MovieDetailsScreen = ({
+  route: {
+    params: {movieId},
+  },
+}: {
+  route: {
+    params: {
+      movieId: string;
+    };
+  };
+}) => {
   const [movie, setMovie] = useState({} as Movie);
   useEffect(() => {
     getMovie();
   }, []);
 
   async function getMovie() {
-    // TODO: add movie id from props
-    // const movie = this.props.route.params.movie;
-    const movie = await ApiHelper.getMovie('id');
+    const movie = await ApiHelper.getMovie(movieId);
     setMovie(movie);
   }
 
