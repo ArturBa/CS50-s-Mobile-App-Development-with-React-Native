@@ -5,9 +5,9 @@ import ScrollViewMovies from '../components/ScrollViewMovies';
 import {MovieSearch} from '../interfaces/Movie';
 import ApiHelper from '../api/apiHelper';
 
-const MovieListScreen = (props) => {
+const MovieListScreen = ({navigation}: {navigation: any}) => {
   const handleMovieDetails = (movieId: string) => {
-    props.navigation.push('Movie Details', {movieId: movieId});
+    navigation.push('Movie Details', {movieId: movieId});
   };
 
   const [movieResult, setMovieResult] = useState([] as MovieSearch[]);
