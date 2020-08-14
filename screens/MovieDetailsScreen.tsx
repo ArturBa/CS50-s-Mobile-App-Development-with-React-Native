@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-import ApiHelper from '../api/api';
+import ApiHelper from '../api/apiHelper';
 import {Movie} from '../interfaces/Movie';
 
 const MovieDetailsScreen = ({

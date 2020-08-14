@@ -3,15 +3,22 @@ import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
 import PropTypes from 'prop-types';
 
-import Row from './MovieRow';
+import MovieRow from './MovieRow';
+import {MovieSearch} from '../interfaces/Movie';
 
-const ScrollViewMovies = ({movies, onSelectMovie}) => {
+const ScrollViewMovies = ({
+  movies,
+  onSelectMovie,
+}: {
+  movies: MovieSearch[];
+  onSelectMovie: any;
+}) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={movies}
         renderItem={({item}) => (
-          <Row movie={item} onSelectMovie={onSelectMovie} />
+          <MovieRow movie={item} onSelectMovie={onSelectMovie} />
         )}
       />
     </SafeAreaView>
