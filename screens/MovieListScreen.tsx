@@ -11,8 +11,6 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
 
-  // let page: number;
-  // let maxPage: number;
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -35,7 +33,9 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
   }, [navigation]);
 
   useEffect(() => {
-    getMovieResult();
+    getMovieResult().then((newResults) => {
+      setMovieResult(newResults);
+    });
   }, [page]);
 
   async function getInitMovieResult(): Promise<void> {
@@ -47,7 +47,10 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
     setPage(page + 1);
   }
 
-  async function getMovieResult(): Promise<void> {
+  async function getMovieResult(): Promise<MovieSearch[]> {
+    if (searchTitle === '') {
+      return [];
+    }
     const movieResults = await ApiHelper.getMoviesByName(searchTitle, page);
     let newMovieResults: MovieSearch[];
     console.log(page);
@@ -57,7 +60,7 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
     } else {
       newMovieResults = movieResults;
     }
-    setMovieResult(newMovieResults);
+    return newMovieResults;
   }
 
   async function getMoreData(): Promise<void> {

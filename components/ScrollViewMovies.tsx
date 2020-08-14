@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 
 import MovieRow from './MovieRow';
 import {MovieSearch} from '../interfaces/Movie';
-import ApiHelper from '../api/apiHelper';
 
 const ScrollViewMovies = ({
   movies,
