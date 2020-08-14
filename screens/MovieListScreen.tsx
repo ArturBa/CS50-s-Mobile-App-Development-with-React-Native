@@ -6,10 +6,9 @@ import {MovieSearch} from '../interfaces/Movie';
 import ApiHelper from '../api/apiHelper';
 
 const MovieListScreen = ({navigation}: {navigation: any}) => {
-  let searchTitle: string = 'this is not a';
+  const [searchTitle, setSearchTitle] = React.useState('');
   const [movieResult, setMovieResult] = useState([] as MovieSearch[]);
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(1);
+  const [page, setPage] = useState({page: 1, maxPage: 1});
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,8 +18,7 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
             <TextInput
               maxLength={30}
               onChangeText={(text) => {
-                console.log(text);
-                searchTitle = text;
+                setSearchTitle(text);
               }}
               value={searchTitle}
               placeholder="Search"
@@ -30,7 +28,7 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
         );
       },
     });
-  }, [navigation]);
+  });
 
   useEffect(() => {
     getMovieResult().then((newResults) => {
@@ -40,22 +38,30 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
 
   async function getInitMovieResult(): Promise<void> {
     Keyboard.dismiss();
-    setMaxPage(await ApiHelper.getMoviesByNamePages(searchTitle));
-    console.log('init');
-
-    setPage(1);
-    setPage(page + 1);
+    setMovieResult([] as MovieSearch[]);
+    setPage({
+      page: 1,
+      maxPage: await ApiHelper.getMoviesByNamePages(searchTitle),
+    });
+    debugger;
+    nextPage();
   }
 
   async function getMovieResult(): Promise<MovieSearch[]> {
     if (searchTitle === '') {
       return [];
     }
-    const movieResults = await ApiHelper.getMoviesByName(searchTitle, page);
-    let newMovieResults: MovieSearch[];
-    console.log(page);
+    console.log(`getting data for: ${searchTitle}`);
 
-    if (page > 1) {
+    const movieResults = await ApiHelper.getMoviesByName(
+      searchTitle,
+      page.page,
+    );
+    let newMovieResults: MovieSearch[];
+    if (!movieResults) {
+      return movieResult;
+    }
+    if (page.page > 1) {
       newMovieResults = movieResult.concat(movieResults);
     } else {
       newMovieResults = movieResults;
@@ -64,12 +70,17 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
   }
 
   async function getMoreData(): Promise<void> {
-    if (page === maxPage || movieResult.length === 0) {
-      console.log('end reached');
-    } else {
-      setPage(page + 1);
-    }
+    nextPage();
   }
+
+  const nextPage = (): boolean => {
+    if (page.page < page.maxPage) {
+      setPage({page: page.page + 1, maxPage: page.maxPage});
+      return true;
+    }
+    console.log('end of data');
+    return false;
+  };
 
   const handleMovieDetails = (movieId: string) => {
     navigation.push('Movie Details', {movieId: movieId});
