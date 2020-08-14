@@ -4,6 +4,6 @@ export interface Movie {
   Director: string;
   Poster: string;
   imdbRating: number;
-  imdbVotes: number;
+  imdbVotes: string;
   Plot: string;
 }
