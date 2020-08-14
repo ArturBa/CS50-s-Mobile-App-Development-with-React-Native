@@ -10,10 +10,22 @@ export default class ApiHelper {
     return movie;
   }
 
-  static async getMoviesByName(movieName: string): Promise<MovieSearch[]> {
-    const response = await fetch(BASE_URL + '&s=' + movieName);
+  static async getMoviesByName(
+    movieName: string,
+    page = 1,
+  ): Promise<MovieSearch[]> {
+    const response = await fetch(
+      BASE_URL + '&s=' + movieName + '&page=' + page,
+    );
     const json = await response.json();
     const movieSearch: MovieSearch[] = await json.Search;
     return movieSearch;
+  }
+
+  static async getMoviesByNamePages(movieName: string): Promise<number> {
+    const response = await fetch(BASE_URL + '&s=' + movieName);
+    const json = await response.json();
+    const movieResults: number = await json.totalResults;
+    return Math.ceil(movieResults / 10);
   }
 }

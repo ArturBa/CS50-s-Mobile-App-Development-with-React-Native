@@ -18,7 +18,7 @@ const MovieDetailsScreen = ({
   const [movie, setMovie] = useState({} as Movie);
   useEffect(() => {
     getMovie();
-  }, []);
+  });
 
   async function getMovie() {
     const movie = await ApiHelper.getMovie(movieId);
