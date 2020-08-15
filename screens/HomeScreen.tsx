@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-
 import { Button, Text } from 'react-native-paper';
+
 import { User } from '../redux/interfaces';
 
 function HomeScreen({ users }: { users: User[] }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={HomeScreenStyles.view}>
       <FlatList
         data={users}
         keyExtractor={(user) => user.id}
@@ -18,6 +18,12 @@ function HomeScreen({ users }: { users: User[] }) {
     </View>
   );
 }
+
+const HomeScreenStyles = StyleSheet.create({
+  view: {
+    marginTop: StatusBar.currentHeight,
+  },
+});
 
 const mapStateToProps = (state: any) => ({
   users: state.user,

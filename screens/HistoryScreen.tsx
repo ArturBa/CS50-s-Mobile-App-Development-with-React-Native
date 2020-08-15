@@ -1,27 +1,25 @@
 import * as React from 'react';
 import { View, FlatList } from 'react-native';
-import { Payment } from '../redux/interfaces';
 import { connect } from 'react-redux';
-import Constants from 'expo-constants';
-
 import { Text } from 'react-native-paper';
 
+import { Payment } from '../redux/interfaces';
+import PaymentRow from '../components/PaymentRow';
+
 function HistoryScreen({ payments }: { payments: Payment[] }) {
-  // TODO: fix status bar overlapping
   return (
     <View
       style={{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: Constants.statusBarHeight,
       }}
     >
       <FlatList
         data={payments}
         keyExtractor={(payment) => payment.id}
         renderItem={({ item: payment }) => (
-          <Text>{JSON.stringify(payment)}</Text>
+          <PaymentRow payment={payment} />
         )}
       />
     </View>
