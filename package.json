@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@ant-design/react-native": "^4.0.5",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/material-bottom-tabs": "^5.2.16",
     "@react-navigation/native": "^5.7.3",
@@ -17,9 +18,9 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-gesture-handler": "^1.7.0",
+    "react-native-gesture-handler": "~1.6.0",
     "react-native-paper": "^4.0.1",
-    "react-native-screens": "^2.10.1",
+    "react-native-screens": "~2.9.0",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {
