@@ -4,7 +4,7 @@ import { BottomNavigation } from 'react-native-paper';
 import HomeScreen from '../screens/HomeScreen';
 import HistoryStackScreen from '../screens/HistoryStackScreen';
 
-const MyComponent = () => {
+const TabBarNavigator = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'home', title: 'Home', icon: 'home' },
@@ -25,4 +25,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default TabBarNavigator;
