@@ -1,4 +1,4 @@
-import { User } from './interfaces';
+import { User, Payment } from './interfaces';
 
 // action types
 export enum Actions {
@@ -12,7 +12,7 @@ export interface Action<T> {
 }
 
 // action creators
-export const addPayment = (update: any) => ({
+export const addPayment = (update: Payment) => ({
   type: Actions.ADD_PAYMENT,
   payload: update,
 });

@@ -3,8 +3,9 @@ import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button, Text } from 'react-native-paper';
+import { User } from '../redux/interfaces';
 
-function HomeScreen({ users }: { users: any[] }) {
+function HomeScreen({ users }: { users: User[] }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <FlatList

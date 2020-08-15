@@ -1,11 +1,30 @@
 import { createStore } from 'redux';
 
 import reducer from './reducer';
-import { addUser } from './actions';
+import { addUser, addPayment } from './actions';
 
 const store = createStore(reducer);
 
 store.dispatch(addUser({ name: 'Joanna', id: 1 }));
 store.dispatch(addUser({ name: 'Artur', id: 2 }));
+
+store.dispatch(
+  addPayment({
+    id: 1,
+    userId: 2,
+    value: 12.2,
+    comment: 'Biedronka',
+    date: '10.02.02',
+  })
+);
+store.dispatch(
+  addPayment({
+    id: 2,
+    userId: 1,
+    value: 22.2,
+    comment: 'Lewiatan',
+    date: '10.02.22',
+  })
+);
 
 export default store;

@@ -1,12 +1,25 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
+import { Payment } from '../redux/interfaces';
+import { connect } from 'react-redux';
 
-function HistoryScreen() {
+import { Text } from 'react-native-paper';
+
+function HistoryScreen({ payments }: { payments: Payment[] }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>History!</Text>
+      <FlatList
+        data={payments}
+        keyExtractor={(payment) => payment.id}
+        renderItem={({ item: payment }) => (
+          <Text>{JSON.stringify(payment)}</Text>
+        )}
+      />
     </View>
   );
 }
 
-export default HistoryScreen;
+const mapStateToProps = (state: any) => ({
+  payments: state.payment,
+});
+export default connect(mapStateToProps)(HistoryScreen);

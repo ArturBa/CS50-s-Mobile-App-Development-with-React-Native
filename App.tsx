@@ -11,11 +11,10 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 
-import { AppLoading } from 'expo';
-
 import HistoryStackScreen from './screens/HistoryStackScreen';
 import HomeScreen from './screens/HomeScreen';
 import store from './redux/store';
+import MyComponent from './components/tabBarNavigator';
 
 const AppTab = createMaterialBottomTabNavigator();
 
@@ -24,10 +23,11 @@ export default function App() {
     <ReduxProvider store={store}>
       <PaperProvider theme={PaperDarkTheme}>
         <NavigationContainer theme={NavigationDarkTheme}>
-          <AppTab.Navigator>
+          <MyComponent></MyComponent>
+          {/* <AppTab.Navigator>
             <AppTab.Screen name="Home" component={HomeScreen} />
             <AppTab.Screen name="History" component={HistoryStackScreen} />
-          </AppTab.Navigator>
+          </AppTab.Navigator> */}
         </NavigationContainer>
       </PaperProvider>
     </ReduxProvider>

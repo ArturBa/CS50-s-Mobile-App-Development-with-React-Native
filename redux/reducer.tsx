@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import { Action, Actions } from './actions';
-import { User } from './interfaces';
+import { User, Payment } from './interfaces';
 
-const paymentReducer = (state = [], action: Action<any>) => {
+const paymentReducer = (state = [], action: Action<Payment>) => {
   if (action.type === Actions.ADD_PAYMENT) return [...state, action.payload];
   return state;
 };
