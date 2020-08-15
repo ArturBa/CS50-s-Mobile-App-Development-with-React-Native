@@ -1,8 +1,15 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DarkTheme as NavigationDarkTheme,
+} from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import * as Font from 'expo-font';
+import {
+  DarkTheme as PaperDarkTheme,
+  Provider as PaperProvider,
+} from 'react-native-paper';
+
 import { AppLoading } from 'expo';
 
 import HistoryStackScreen from './screens/HistoryStackScreen';
@@ -15,17 +22,11 @@ export default function App() {
 
   const initLoad = () => {
     return new Promise<void>((reject, resolve) => {
-      Promise.all([loadFont]).then(() => {
+      Promise.all([]).then(() => {
         resolve();
       });
     });
   };
-
-  const loadFont = Font.loadAsync(
-    'antoutline',
-    // eslint-disable-next-line
-    require('@ant-design/icons-react-native/fonts/antoutline.ttf')
-  );
 
   return !ready ? (
     <AppLoading
@@ -35,11 +36,13 @@ export default function App() {
       }}
     />
   ) : (
-    <NavigationContainer>
-      <AppTab.Navigator>
-        <AppTab.Screen name="Home" component={HomeScreen} />
-        <AppTab.Screen name="History" component={HistoryStackScreen} />
-      </AppTab.Navigator>
-    </NavigationContainer>
+    <PaperProvider theme={PaperDarkTheme}>
+      <NavigationContainer theme={NavigationDarkTheme}>
+        <AppTab.Navigator>
+          <AppTab.Screen name="Home" component={HomeScreen} />
+          <AppTab.Screen name="History" component={HistoryStackScreen} />
+        </AppTab.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
