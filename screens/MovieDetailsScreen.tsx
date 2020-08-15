@@ -3,10 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 
 import ApiHelper from '../api/apiHelper';
 import {Movie} from '../interfaces/Movie';
-import {
-  TouchableOpacity,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
+import {TouchableHighlight} from 'react-native-gesture-handler';
 
 const MovieDetailsScreen = ({
   navigation,

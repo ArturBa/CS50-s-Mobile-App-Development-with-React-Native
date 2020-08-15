@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, Keyboard} from 'react-native';
+import {View, Text, TextInput, Keyboard, StyleSheet} from 'react-native';
 
 import ScrollViewMovies from '../components/ScrollViewMovies';
 import {MovieSearch} from '../interfaces/Movie';
 import ApiHelper from '../api/apiHelper';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MovieListScreen = ({navigation}: {navigation: any}) => {
   const [searchTitle, setSearchTitle] = React.useState('');
@@ -14,8 +15,9 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <View>
+          <View style={styles.searchSection}>
             <TextInput
+              style={styles.searchInput}
               maxLength={30}
               onChangeText={(text) => {
                 setSearchTitle(text);
@@ -23,7 +25,9 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
               value={searchTitle}
               placeholder="Search"
             />
-            <Text onPress={getInitMovieResult}>Search</Text>
+            <Text onPress={getInitMovieResult}>
+              <Icon name="ios-search" size={30} style={styles.searchIcon} />
+            </Text>
           </View>
         );
       },
@@ -98,5 +102,27 @@ const MovieListScreen = ({navigation}: {navigation: any}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  searchSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  searchIcon: {
+    padding: 10,
+  },
+  searchInput: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingLeft: 0,
+    backgroundColor: '#fff',
+    color: '#424242',
+  },
+});
 
 export default MovieListScreen;
