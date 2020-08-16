@@ -16,33 +16,25 @@ import { addPayment } from '../redux/actions';
 import { User } from '../redux/interfaces';
 
 export interface FormObject {
-  valid: boolean;
+  pristine: boolean;
   value: string;
 }
 
 const NewPaymentForm = ({ users }: { users: User[] }) => {
   const [comment, setComment] = React.useState({
-    valid: true,
+    pristine: true,
     value: '',
   } as FormObject);
   const [value, setValue] = React.useState({
-    valid: true,
+    pristine: true,
     value: '',
   } as FormObject);
   const [userId, setUserId] = React.useState(Number);
 
   const { colors } = useTheme();
 
-  const required = (formObject: FormObject) => {
-    if (formObject.value !== '') {
-      formObject.valid = false;
-    } else {
-      formObject.valid = true;
-    }
-  };
-
   const addPaymentFromForm = () => {
-    if (!comment.valid || !value.valid) {
+    if (comment.value === '' || isNaN(parseFloat(value.value))) {
       return;
     }
     store.dispatch(
@@ -75,22 +67,26 @@ const NewPaymentForm = ({ users }: { users: User[] }) => {
         value={value.value.toString()}
         keyboardType="numeric"
         onChangeText={(text: string) => {
-          required(value);
-          setValue({ valid: value.valid, value: text });
+          setValue({ pristine: false, value: text });
         }}
       />
-      <HelperText type="error" visible={!value.valid}>
-        Value is required
+      <HelperText
+        type="error"
+        visible={isNaN(parseFloat(value.value)) && !value.pristine}
+      >
+        Value must be a number
       </HelperText>
       <TextInput
         label="Comment"
         value={comment.value}
         onChangeText={(text: string) => {
-          required(comment);
-          setComment({ valid: comment.valid, value: text });
+          setComment({ pristine: false, value: text });
         }}
       />
-      <HelperText type="error" visible={!comment.valid}>
+      <HelperText
+        type="error"
+        visible={comment.value === '' && !comment.pristine}
+      >
         Comment is required
       </HelperText>
       <Button
