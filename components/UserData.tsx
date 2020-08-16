@@ -1,16 +1,36 @@
 import * as React from 'react';
 
-import { View } from 'react-native';
+import { connect } from 'react-redux';
+import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { User } from '../redux/interfaces';
+import { User, Payment } from '../redux/interfaces';
 
-const UserData = ({ user }: { user: User }) => {
+const UserData = ({ user, payments }: { user: User; payments: Payment[] }) => {
+  const userPayments = payments
+    .filter((p) => p.userId === user.id)
+    .reduce((a, b) => a.value + b.value, { value: 0 });
   return (
-    <View>
-      <Text>User: {user.name}</Text>
+    <View style={UserDataStyles().context}>
+      <Text style={UserDataStyles().user}>
+        {user.name} {userPayments}
+      </Text>
     </View>
   );
 };
 
-export default UserData;
+export const UserDataStyles = () => {
+  return StyleSheet.create({
+    context: {
+      padding: 20,
+    },
+    user: {
+      fontSize: 20,
+    },
+  });
+};
+
+const mapStateToProps = (state: any) => ({
+  payments: state.payment,
+});
+export default connect(mapStateToProps)(UserData);
