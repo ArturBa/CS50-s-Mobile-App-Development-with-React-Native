@@ -32,15 +32,6 @@ export const getPayments = (): Promise<void> =>
         date: '2020-02-13',
       })
     );
-    store.dispatch(
-      addPayment({
-        id: 2,
-        userId: 1,
-        value: 22.2,
-        comment: 'Lewiatan',
-        date: '2020-02-13',
-      })
-    );
     resolve();
   });
 

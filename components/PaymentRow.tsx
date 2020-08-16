@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { getUserByIdFromUsers } from '../utils/Users';
 import { Payment, User } from '../redux/interfaces';
-import { StyleSheet } from 'react-native';
-import { Text, Surface } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Text, Surface, useTheme } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const PaymentRow = ({
@@ -19,32 +19,48 @@ const PaymentRow = ({
 
   return (
     <TouchableOpacity
-      style={PaymentRowStyle().touch}
       onPress={() => {
         handleShowDetails(payment);
       }}
     >
       <Surface style={PaymentRowStyle().surface}>
-        <Text style={PaymentRowStyle().value}>{payment.value}</Text>
-        <Text>{payment.comment}</Text>
+        <View style={PaymentRowStyle().row}>
+          <Text style={PaymentRowStyle().value}>
+            {payment.value.toFixed(2)}
+          </Text>
+          <View style={PaymentRowStyle().column}>
+            <Text style={PaymentRowStyle().user}>{user.name}</Text>
+            <Text style={PaymentRowStyle().comment}>{payment.comment}</Text>
+          </View>
+        </View>
       </Surface>
     </TouchableOpacity>
   );
 };
 
 const PaymentRowStyle = () => {
+  const { colors } = useTheme();
   return StyleSheet.create({
     surface: {
       marginTop: 12,
-      padding: 8,
-      height: 80,
+      padding: 12,
       alignItems: 'center',
       justifyContent: 'center',
       elevation: 4,
     },
-    value: {
-      fontSize: 22,
+    row: {
+      flex: 1,
+      flexDirection: 'row',
+      width: '100%',
+      alignItems: 'stretch',
     },
+    value: {
+      fontSize: 40,
+      marginRight: 10,
+    },
+    column: {},
+    comment: {},
+    user: { fontSize: 24, color: colors.primary },
   });
 };
 

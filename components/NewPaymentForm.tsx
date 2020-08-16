@@ -57,7 +57,7 @@ const NewPaymentForm = ({
     store.dispatch(
       addPayment({
         id: paymentId,
-        value: parseFloat(value.value),
+        value: parseFloat(parseFloat(value.value).toFixed(2)),
         comment: comment.value,
         userId: userId + 1,
         date: dateNow,
@@ -87,8 +87,9 @@ const NewPaymentForm = ({
         label="Value"
         value={value.value.toString()}
         keyboardType="numeric"
+        onBlur={() => setValue({ pristine: false, value: value.value })}
         onChangeText={(text: string) => {
-          setValue({ pristine: false, value: text });
+          setValue({ pristine: value.pristine, value: text });
         }}
       />
       <HelperText
@@ -100,8 +101,9 @@ const NewPaymentForm = ({
       <TextInput
         label="Comment"
         value={comment.value}
+        onBlur={() => setValue({ pristine: false, value: comment.value })}
         onChangeText={(text: string) => {
-          setComment({ pristine: false, value: text });
+          setComment({ pristine: comment.pristine, value: text });
         }}
       />
       <HelperText

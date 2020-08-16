@@ -13,12 +13,11 @@ const UserData = ({ user, payments }: { user: User; payments: Payment[] }) => {
       .filter((p) => p.userId === user.id)
       .reduce((a, b) => a.value + b.value, { value: 0 });
   }
-  console.log(userPayments);
 
   return (
     <View style={UserDataStyles().context}>
       <Text style={UserDataStyles().user}>
-        {user.name}: {userPayments}
+        {user.name}: {userPayments.toFixed(2)}
       </Text>
     </View>
   );

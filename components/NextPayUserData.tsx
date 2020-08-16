@@ -28,12 +28,15 @@ const NextPayUserData = ({
   const user = getUserByIdFromUsers(paymentsSorted[0].userId, users);
 
   const paymentDiff = () => {
-    return paymentsSorted[1].value - paymentsSorted[0].value;
+    if (paymentsSorted.length > 2) {
+      return paymentsSorted[1].value - paymentsSorted[0].value;
+    }
+    return paymentsSorted[0].value;
   };
   return (
     <View style={UserDataStyles().context}>
       <Text style={UserDataStyles().user}>
-        Next payment: {user.name} -{'>'} ({paymentDiff()})
+        Next payment: {user.name} -{'>'} ({paymentDiff().toFixed(2)})
       </Text>
     </View>
   );
