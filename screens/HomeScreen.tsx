@@ -1,14 +1,24 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Text, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 
 import NewPaymentForm from '../components/NewPaymentForm';
+import SnackBar, {
+  SnackBarInterface,
+  SnackBarType,
+} from '../components/SnackBar';
 
 function HomeScreen() {
+  const [snackBar, setSnackBar] = React.useState({
+    visible: false,
+    text: '',
+    type: SnackBarType.INFO,
+  } as SnackBarInterface);
   return (
     <View style={HomeScreenStyles().view}>
-      <NewPaymentForm />
+      <NewPaymentForm setSnackBar={setSnackBar} />
+      <SnackBar snackBar={snackBar} setSnackBar={setSnackBar} />
     </View>
   );
 }
@@ -16,7 +26,9 @@ function HomeScreen() {
 const HomeScreenStyles = () => {
   const { colors } = useTheme();
   return StyleSheet.create({
-    view: {},
+    view: {
+      flex: 1,
+    },
     segment: {
       backgroundColor: colors.surface,
     },

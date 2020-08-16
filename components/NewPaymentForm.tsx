@@ -14,13 +14,20 @@ import { View, StyleSheet } from 'react-native';
 import store from '../redux/store';
 import { addPayment } from '../redux/actions';
 import { User } from '../redux/interfaces';
+import { SnackBarType } from './SnackBar';
 
 export interface FormObject {
   pristine: boolean;
   value: string;
 }
 
-const NewPaymentForm = ({ users }: { users: User[] }) => {
+const NewPaymentForm = ({
+  users,
+  setSnackBar,
+}: {
+  users: User[];
+  setSnackBar: Function;
+}) => {
   const [comment, setComment] = React.useState({
     pristine: true,
     value: '',
@@ -37,6 +44,11 @@ const NewPaymentForm = ({ users }: { users: User[] }) => {
     setComment({ pristine: false, value: comment.value });
     setValue({ pristine: false, value: value.value });
     if (comment.value === '' || isNaN(parseFloat(value.value))) {
+      setSnackBar({
+        visible: true,
+        text: 'Check the form',
+        type: SnackBarType.ERROR,
+      });
       return;
     }
     const dateNow = new Date().toString().slice(0, 10);
@@ -49,18 +61,17 @@ const NewPaymentForm = ({ users }: { users: User[] }) => {
         date: dateNow,
       })
     );
+    setSnackBar({ visible: true, text: 'Payment added' });
     setComment({ pristine: true, value: '' });
     setValue({ pristine: true, value: '' });
   };
-
-  console.log(comment);
 
   return (
     <View>
       <Text style={NewPaymentFormStyle().title}>New Payment</Text>
       <SegmentedControl
         style={NewPaymentFormStyle().segments}
-        activeTextColor="#bb86fc"
+        activeTextColor={colors.primary}
         textColor={colors.text}
         tintColor={colors.surface}
         values={users.map((user) => user.name)}
@@ -109,7 +120,6 @@ const NewPaymentForm = ({ users }: { users: User[] }) => {
 };
 
 const NewPaymentFormStyle = () => {
-  const { colors } = useTheme();
   return StyleSheet.create({
     title: {
       fontSize: 30,
