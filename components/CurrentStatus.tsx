@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Surface, Text } from 'react-native-paper';
-import { StyleSheet, View } from 'react-native';
+import { Surface } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 import { User } from '../redux/interfaces';
 import UserData from './UserData';
