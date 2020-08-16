@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Payment } from '../redux/interfaces';
 import PaymentRow from '../components/PaymentRow';
+import HistoryStackScreen from './HistoryStackScreen';
 
 function HistoryScreen({
   payments,
@@ -12,9 +13,18 @@ function HistoryScreen({
   payments: Payment[];
   navigation: any;
 }) {
+  const [refreshing, setRefreshing] = React.useState(false);
   function handleShowDetail(payment: Payment) {
     navigation.push('Details', { payment: payment });
   }
+
+  const refreshData = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  };
+
   return (
     <View
       style={{
@@ -24,7 +34,10 @@ function HistoryScreen({
       }}
     >
       <FlatList
+        style={HistoryScreenStyles().list}
         data={payments}
+        refreshing={refreshing}
+        onRefresh={refreshData}
         keyExtractor={(payment) => payment.id}
         renderItem={({ item: payment }) => (
           <PaymentRow payment={payment} handleShowDetails={handleShowDetail} />
@@ -33,6 +46,14 @@ function HistoryScreen({
     </View>
   );
 }
+
+const HistoryScreenStyles = () => {
+  return StyleSheet.create({
+    list: {
+      width: '90%',
+    },
+  });
+};
 
 const mapStateToProps = (state: any) => ({
   payments: state.payment,

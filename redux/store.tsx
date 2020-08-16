@@ -16,7 +16,7 @@ export function initStore(): Promise<void> {
         userId: 2,
         value: 12.2,
         comment: 'Biedronka',
-        date: '10.02.02',
+        date: '2020-02-12',
       })
     );
     store.dispatch(
@@ -25,7 +25,7 @@ export function initStore(): Promise<void> {
         userId: 1,
         value: 22.2,
         comment: 'Lewiatan',
-        date: '10.02.22',
+        date: '2020-02-13',
       })
     );
 
