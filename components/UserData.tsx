@@ -7,15 +7,13 @@ import { Text } from 'react-native-paper';
 import { User, Payment } from '../redux/interfaces';
 
 const UserData = ({ user, payments }: { user: User; payments: Payment[] }) => {
-  let userPayments = 0;
-  debugger;
-  if (payments.filter((p) => p.userId === user.id).length === 1) {
-    userPayments = payments.filter((p) => p.userId === user.id)[0].value;
-  } else if (payments.filter((p) => p.userId === user.id).length > 1) {
-    userPayments = payments
-      .filter((p) => p.userId === user.id)
-      .reduce((a, b) => a.value + b.value);
-  }
+  const reducePayments = (): number => {
+    let userPayments = 0;
+    const filteredPayments = payments.filter((p) => p.userId === user.id);
+    filteredPayments.map((pay) => (userPayments += pay.value));
+    return userPayments;
+  };
+  const userPayments = reducePayments();
 
   return (
     <View style={UserDataStyles().context}>

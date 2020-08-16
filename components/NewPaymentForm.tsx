@@ -42,20 +42,16 @@ const NewPaymentForm = ({
 
   const { colors } = useTheme();
 
-  const addPaymentFromForm = () => {
+  const touchAllInputs = () => {
     setComment({ pristine: false, value: comment.value });
     setValue({ pristine: false, value: value.value });
-    if (comment.value === '' || isNaN(parseFloat(value.value))) {
-      setSnackBar({
-        visible: true,
-        text: 'Check the form',
-        type: SnackBarType.ERROR,
-      });
-      return;
-    }
+  };
 
-    console.log(parseFloat(value.value));
+  const isFormValid = (): boolean => {
+    return comment.value === '' || isNaN(parseFloat(value.value));
+  };
 
+  const sendData = async () => {
     const dateNow = new Date().toISOString().slice(0, 10);
     store.dispatch(
       addPayment({
@@ -66,10 +62,30 @@ const NewPaymentForm = ({
         date: dateNow,
       })
     );
-    Keyboard.dismiss();
-    setSnackBar({ visible: true, text: 'Payment added' });
+  };
+
+  const resetInput = () => {
     setComment({ pristine: true, value: '' });
     setValue({ pristine: true, value: '' });
+  };
+
+  const addPaymentFromForm = async () => {
+    touchAllInputs();
+    if (isFormValid()) {
+      setSnackBar({
+        visible: true,
+        text: 'Check the form',
+        type: SnackBarType.ERROR,
+      });
+      return;
+    }
+
+    await sendData();
+
+    Keyboard.dismiss();
+    setSnackBar({ visible: true, text: 'Payment added' });
+
+    resetInput();
   };
 
   return (

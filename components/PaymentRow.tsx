@@ -57,6 +57,7 @@ const PaymentRowStyle = () => {
     value: {
       fontSize: 40,
       marginRight: 10,
+      minWidth: 95,
     },
     column: {},
     comment: {},
