@@ -11,7 +11,7 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 import { View, StatusBar } from 'react-native';
 
-import store from './redux/store';
+import store, { initStore } from './redux/store';
 import TabBarNavigator from './components/TabBarNavigator';
 
 export default function App() {
@@ -20,9 +20,9 @@ export default function App() {
 
   async function initApp() {
     return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
+      Promise.all([initStore()]).then(() => {
         resolve();
-      }, 2 * 1000);
+      });
     });
   }
 
