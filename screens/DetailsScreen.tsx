@@ -1,7 +1,16 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 
-function DetailsScreen() {
+import { Payment } from '../redux/interfaces';
+
+function DetailsScreen({
+  route: {
+    params: { payment },
+  },
+}: {
+  route: { params: { payment: Payment } };
+}) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Details!</Text>

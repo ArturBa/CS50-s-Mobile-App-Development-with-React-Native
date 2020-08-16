@@ -1,12 +1,20 @@
 import * as React from 'react';
 import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { Text } from 'react-native-paper';
 
 import { Payment } from '../redux/interfaces';
 import PaymentRow from '../components/PaymentRow';
 
-function HistoryScreen({ payments }: { payments: Payment[] }) {
+function HistoryScreen({
+  payments,
+  navigation,
+}: {
+  payments: Payment[];
+  navigation: any;
+}) {
+  function handleShowDetail(payment: Payment) {
+    navigation.push('Details', { payment: payment });
+  }
   return (
     <View
       style={{
@@ -19,7 +27,7 @@ function HistoryScreen({ payments }: { payments: Payment[] }) {
         data={payments}
         keyExtractor={(payment) => payment.id}
         renderItem={({ item: payment }) => (
-          <PaymentRow payment={payment} />
+          <PaymentRow payment={payment} handleShowDetails={handleShowDetail} />
         )}
       />
     </View>

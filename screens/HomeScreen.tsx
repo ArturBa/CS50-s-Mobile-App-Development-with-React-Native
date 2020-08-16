@@ -21,7 +21,7 @@ function HomeScreen({ users }: { users: User[] }) {
 
 const HomeScreenStyles = StyleSheet.create({
   view: {
-    marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
   },
 });
 
