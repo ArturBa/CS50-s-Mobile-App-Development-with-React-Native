@@ -23,9 +23,11 @@ export interface FormObject {
 
 const NewPaymentForm = ({
   users,
+  paymentId,
   setSnackBar,
 }: {
   users: User[];
+  paymentId: number;
   setSnackBar: Function;
 }) => {
   const [comment, setComment] = React.useState({
@@ -51,10 +53,10 @@ const NewPaymentForm = ({
       });
       return;
     }
-    const dateNow = new Date().toString().slice(0, 10);
+    const dateNow = new Date().toISOString().slice(0, 10);
     store.dispatch(
       addPayment({
-        id: 0,
+        id: paymentId,
         value: parseFloat(value.value),
         comment: comment.value,
         userId: userId + 1,
@@ -136,5 +138,6 @@ const NewPaymentFormStyle = () => {
 
 const mapStateToProps = (state: any) => ({
   users: state.user,
+  paymentId: state.payment.length + 1,
 });
 export default connect(mapStateToProps)(NewPaymentForm);

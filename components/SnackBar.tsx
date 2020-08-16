@@ -29,8 +29,6 @@ const SnackBar = ({
   if (snackBar.type === SnackBarType.ERROR) {
     style = SnackBarStyle().error;
   }
-  console.log(style);
-
   return (
     <Snackbar
       style={style}

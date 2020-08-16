@@ -56,6 +56,6 @@ const HistoryScreenStyles = () => {
 };
 
 const mapStateToProps = (state: any) => ({
-  payments: state.payment.sort((a: Payment, b: Payment) => a.id - b.id),
+  payments: state.payment.sort((a: Payment, b: Payment) => b.id - a.id),
 });
 export default connect(mapStateToProps)(HistoryScreen);
