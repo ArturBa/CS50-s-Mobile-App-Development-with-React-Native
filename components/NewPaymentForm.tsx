@@ -34,19 +34,26 @@ const NewPaymentForm = ({ users }: { users: User[] }) => {
   const { colors } = useTheme();
 
   const addPaymentFromForm = () => {
+    setComment({ pristine: false, value: comment.value });
+    setValue({ pristine: false, value: value.value });
     if (comment.value === '' || isNaN(parseFloat(value.value))) {
       return;
     }
+    const dateNow = new Date().toString().slice(0, 10);
     store.dispatch(
       addPayment({
         id: 0,
         value: parseFloat(value.value),
         comment: comment.value,
-        userId: userId,
-        date: '2020-02-02',
+        userId: userId + 1,
+        date: dateNow,
       })
     );
+    setComment({ pristine: true, value: '' });
+    setValue({ pristine: true, value: '' });
   };
+
+  console.log(comment);
 
   return (
     <View>

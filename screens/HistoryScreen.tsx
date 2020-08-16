@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { Payment } from '../redux/interfaces';
 import PaymentRow from '../components/PaymentRow';
-import HistoryStackScreen from './HistoryStackScreen';
 import { getPayments } from '../redux/store';
 
 function HistoryScreen({
@@ -57,6 +56,6 @@ const HistoryScreenStyles = () => {
 };
 
 const mapStateToProps = (state: any) => ({
-  payments: state.payment,
+  payments: state.payment.sort((a: Payment, b: Payment) => a.id - b.id),
 });
 export default connect(mapStateToProps)(HistoryScreen);
