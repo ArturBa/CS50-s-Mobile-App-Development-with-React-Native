@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Payment } from '../redux/interfaces';
 import PaymentRow from '../components/PaymentRow';
 import HistoryStackScreen from './HistoryStackScreen';
+import { getPayments } from '../redux/store';
 
 function HistoryScreen({
   payments,
@@ -20,9 +21,9 @@ function HistoryScreen({
 
   const refreshData = () => {
     setRefreshing(true);
-    setTimeout(() => {
+    getPayments().then(() => {
       setRefreshing(false);
-    }, 1000);
+    });
   };
 
   return (
@@ -38,7 +39,7 @@ function HistoryScreen({
         data={payments}
         refreshing={refreshing}
         onRefresh={refreshData}
-        keyExtractor={(payment) => payment.id}
+        keyExtractor={(payment) => payment.id.toString()}
         renderItem={({ item: payment }) => (
           <PaymentRow payment={payment} handleShowDetails={handleShowDetail} />
         )}

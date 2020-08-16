@@ -1,29 +1,27 @@
 import * as React from 'react';
-import { View, FlatList, StyleSheet, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
 
-import { User } from '../redux/interfaces';
+import NewPaymentForm from '../components/NewPaymentForm';
 
-function HomeScreen({ users }: { users: User[] }) {
+function HomeScreen() {
   return (
-    <View style={HomeScreenStyles.view}>
-      <FlatList
-        data={users}
-        keyExtractor={(user) => user.id}
-        renderItem={({ item: user }) => <Text>{JSON.stringify(user)}</Text>}
-      />
-      <Text>Home!</Text>
-      <Button onPress={() => {}}>Hi!</Button>
+    <View style={HomeScreenStyles().view}>
+      <NewPaymentForm />
     </View>
   );
 }
 
-const HomeScreenStyles = StyleSheet.create({
-  view: {
-    // marginTop: StatusBar.currentHeight,
-  },
-});
+const HomeScreenStyles = () => {
+  const { colors } = useTheme();
+  return StyleSheet.create({
+    view: {},
+    segment: {
+      backgroundColor: colors.surface,
+    },
+  });
+};
 
 const mapStateToProps = (state: any) => ({
   users: state.user,
