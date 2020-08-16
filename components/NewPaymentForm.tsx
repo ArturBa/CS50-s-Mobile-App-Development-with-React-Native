@@ -53,11 +53,14 @@ const NewPaymentForm = ({
       });
       return;
     }
+
+    console.log(parseFloat(value.value));
+
     const dateNow = new Date().toISOString().slice(0, 10);
     store.dispatch(
       addPayment({
         id: paymentId,
-        value: parseFloat(parseFloat(value.value).toFixed(2)),
+        value: parseFloat(value.value),
         comment: comment.value,
         userId: userId + 1,
         date: dateNow,
@@ -101,7 +104,7 @@ const NewPaymentForm = ({
       <TextInput
         label="Comment"
         value={comment.value}
-        onBlur={() => setValue({ pristine: false, value: comment.value })}
+        onBlur={() => setComment({ pristine: false, value: comment.value })}
         onChangeText={(text: string) => {
           setComment({ pristine: comment.pristine, value: text });
         }}
