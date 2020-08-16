@@ -11,7 +11,7 @@ function CurrentStatus({ users }: { users: User[] }) {
   return (
     <Surface style={CurrentStatusStyles().surface}>
       {users.map((user: User) => (
-        <UserData user={user} />
+        <UserData user={user} key={user.id.toString()} />
       ))}
       <NextPayUserData />
     </Surface>
