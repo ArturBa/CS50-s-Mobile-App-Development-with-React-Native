@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Text, useTheme, List, DataTable } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
-import { Payment, User } from '../redux/interfaces';
 import { getUserByIdFromUsers } from '../utils/Users';
+import { Payment, User } from '../redux/interfaces';
+import { StyleSheet, View } from 'react-native';
+import { Text, useTheme, Surface } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const PaymentRow = ({
@@ -23,10 +23,10 @@ const PaymentRow = ({
         handleShowDetails(payment);
       }}
     >
-      <View style={PaymentRowStyle().row}>
+      <Surface style={PaymentRowStyle().surface}>
         <Text style={PaymentRowStyle().value}>{payment.value}</Text>
         <Text>{payment.comment}</Text>
-      </View>
+      </Surface>
     </TouchableOpacity>
   );
 };
@@ -34,9 +34,14 @@ const PaymentRow = ({
 const PaymentRowStyle = () => {
   const { colors } = useTheme();
   return StyleSheet.create({
-    row: {
+    surface: {
       margin: 8,
-      backgroundColor: colors.surface,
+      padding: 8,
+      height: 80,
+      width: 80,
+      alignItems: 'center',
+      justifyContent: 'center',
+      elevation: 4,
     },
     value: {
       fontSize: 22,
