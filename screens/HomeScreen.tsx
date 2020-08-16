@@ -8,6 +8,7 @@ import SnackBar, {
   SnackBarInterface,
   SnackBarType,
 } from '../components/SnackBar';
+import CurrentStatus from '../components/CurrentStatus';
 
 function HomeScreen() {
   const [snackBar, setSnackBar] = React.useState({
@@ -17,6 +18,7 @@ function HomeScreen() {
   } as SnackBarInterface);
   return (
     <View style={HomeScreenStyles().view}>
+      <CurrentStatus />
       <NewPaymentForm setSnackBar={setSnackBar} />
       <SnackBar snackBar={snackBar} setSnackBar={setSnackBar} />
     </View>
@@ -28,6 +30,8 @@ const HomeScreenStyles = () => {
   return StyleSheet.create({
     view: {
       flex: 1,
+      width: '90%',
+      alignSelf: 'center',
     },
     segment: {
       backgroundColor: colors.surface,

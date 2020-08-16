@@ -9,7 +9,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 import SegmentedControl from '@react-native-community/segmented-control';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Keyboard } from 'react-native';
 
 import store from '../redux/store';
 import { addPayment } from '../redux/actions';
@@ -63,6 +63,7 @@ const NewPaymentForm = ({
         date: dateNow,
       })
     );
+    Keyboard.dismiss();
     setSnackBar({ visible: true, text: 'Payment added' });
     setComment({ pristine: true, value: '' });
     setValue({ pristine: true, value: '' });
